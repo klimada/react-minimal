@@ -9,5 +9,6 @@ const MyApp = () => (
   )
 
 const generateArray = (n) => Array.from(new Array(n),(val,i) => 1 + i);
+const generateRandomArray = (n) => Array.from(new Array(n), (val) => Math.floor(Math.random() * 25 ) + 1);
 
 export default MyApp
