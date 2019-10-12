@@ -8,4 +8,6 @@ const MyApp = () => (
   </div>
   )
 
+const generateArray = (n) => Array.from(new Array(n),(val,i) => 1 + i);
+
 export default MyApp
