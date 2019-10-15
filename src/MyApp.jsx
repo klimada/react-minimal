@@ -7,10 +7,17 @@ const arrayno2 = [2, 5, 8, 10];
 class MyApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { myData: (data.map(x => x.students)).flat()};
+    this.state = { myData: (data.map(x => x.students)).flat(),
+      valueA: 0,
+      valueB: 0
+    };
     this.All = this.All.bind(this);
     this.Sort = this.Sort.bind(this);
     this.Old = this.Old.bind(this);
+    //LAB2
+    this.aChange = this.aChange.bind(this);
+    this.bChange = this.bChange.bind(this);
+ 
   }
   
   All() {
@@ -24,6 +31,16 @@ class MyApp extends React.Component {
   Old() {
     this.setState({ myData: (data.filter(x => x.active).map(x => x.students)).flat().filter(a => a.age > 20) });
   }
+  //LAB2
+
+  aChange(event) {
+    this.setState({valueA: event.target.value});
+    console.log('Value changed A:' + event.target.value);
+  }
+  bChange(event) {
+    this.setState({valueB: event.target.value});
+    console.log('Value changed B:' + event.target.value);
+  }
   
   render() {
     const { myData } = this.state;  
@@ -36,6 +53,18 @@ class MyApp extends React.Component {
       <button id="buttonOld" onClick={this.Old}>Old students</button>
 
       <ul>{ myData.map(x => <li key={x.name}>{x.name}</li>)}</ul>
+
+      <form >
+        <label>
+          A:
+          <input type="number" value={this.state.valueA} onChange={this.aChange} />
+        </label>
+        <label>
+          B:
+          <input type="number" value={this.state.valueB} onChange={this.bChange} />
+        </label>
+      </form>
+
       </div>
     );
   }
