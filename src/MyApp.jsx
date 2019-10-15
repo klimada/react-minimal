@@ -9,7 +9,8 @@ class MyApp extends React.Component {
     super(props);
     this.state = { myData: (data.map(x => x.students)).flat(),
       valueA: 0,
-      valueB: 0
+      valueB: 0,
+      abArray: [],
     };
     this.All = this.All.bind(this);
     this.Sort = this.Sort.bind(this);
@@ -34,16 +35,20 @@ class MyApp extends React.Component {
   //LAB2
 
   aChange(event) {
-    this.setState({valueA: event.target.value});
+    const valueA = Number(event.target.value);
+    const abArray = generateABArray(valueA,this.state.valueB)
+    this.setState({valueA,abArray});
     console.log('Value changed A:' + event.target.value);
   }
   bChange(event) {
-    this.setState({valueB: event.target.value});
+    const valueB = Number(event.target.value);
+    const abArray = generateABArray(this.state.valueA,valueB);
+    this.setState({valueB,abArray});
     console.log('Value changed B:' + event.target.value);
   }
   
   render() {
-    const { myData } = this.state;  
+    const { myData,valueA,valueB,abArray} = this.state;  
     return (
       <div className="MyApp"> 
        <Apptitle/>
@@ -53,7 +58,6 @@ class MyApp extends React.Component {
       <button id="buttonOld" onClick={this.Old}>Old students</button>
 
       <ul>{ myData.map(x => <li key={x.name}>{x.name}</li>)}</ul>
-
       <form >
         <label>
           A:
@@ -64,13 +68,19 @@ class MyApp extends React.Component {
           <input type="number" value={this.state.valueB} onChange={this.bChange} />
         </label>
       </form>
-
+      <ul>{ abArray.map(x => <li key={x}>{x}</li>)}</ul>
       </div>
     );
   }
 }
 
 const generateArray = (n) => Array.from(new Array(n),(val,i) => 1 + i);
+const generateABArray = (a,b) => 
+{
+  if(b <= a || a <=0)
+    return [];
+  return Array.from(Array(b - a + 1),(val,i) => a + i);
+}
 const generateRandomArray = (n) => Array.from(new Array(n), (val) => Math.floor(Math.random() * 25 ) + 1);
 const showGreaterThan15 = (x) => x.filter((a) => a > 15);
 const squareArray = (x) => x.map((a) => Math.sqrt(a));
