@@ -11,7 +11,7 @@ class MyApp extends React.Component {
     this.state = { myData: (data.map(x => x.students)).flat(),
       valueA: 0,
       valueB: 0,
-      abArray: [],
+      abArray: []
     };
     this.All = this.All.bind(this);
     this.Sort = this.Sort.bind(this);
@@ -19,7 +19,7 @@ class MyApp extends React.Component {
     //LAB2
     this.aChange = this.aChange.bind(this);
     this.bChange = this.bChange.bind(this);
- 
+    this.FilterArray = this.FilterArray.bind(this);
   }
   
   All() {
@@ -47,7 +47,11 @@ class MyApp extends React.Component {
     this.setState({valueB,abArray});
     console.log('Value changed B:' + event.target.value);
   }
-  
+  FilterArray() {
+    const abArray = squareArray(this.state.abArray);
+    this.setState({ abArray });
+  }
+
   render() {
     console.time(`render - ${++this.count} -`);
 
@@ -72,6 +76,7 @@ class MyApp extends React.Component {
         </label>
       </form>
       <ul>{ abArray.map(x => <li key={x}>{x}</li>)}</ul>
+      <button onClick={this.FilterArray}>Process array</button>
       </div>
     );
 
