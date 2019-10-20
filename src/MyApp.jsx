@@ -7,6 +7,7 @@ const arrayno2 = [2, 5, 8, 10];
 class MyApp extends React.Component {
   constructor(props) {
     super(props);
+    this.count = 0;
     this.state = { myData: (data.map(x => x.students)).flat(),
       valueA: 0,
       valueB: 0,
@@ -48,8 +49,10 @@ class MyApp extends React.Component {
   }
   
   render() {
+    console.time(`render - ${++this.count} -`);
+
     const { myData,valueA,valueB,abArray} = this.state;  
-    return (
+    const mybody = (
       <div className="MyApp"> 
        <Apptitle/>
       <p>Bundle size: 40700 bytes, Load time of the bundle: 439 ms, Last commit SHA1: 4DB7A670336A22881FB00AA5648787E20CDF7A19</p>    
@@ -71,6 +74,9 @@ class MyApp extends React.Component {
       <ul>{ abArray.map(x => <li key={x}>{x}</li>)}</ul>
       </div>
     );
+
+    console.timeEnd(`render - ${this.count} -`);
+    return mybody;
   }
 }
 
